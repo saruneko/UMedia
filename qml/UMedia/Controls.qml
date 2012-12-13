@@ -82,7 +82,10 @@ Rectangle {
             anchors.fill: parent
 
             onPressed:  {
-                if(playing){
+                if(playMusic.source == ""){
+                    umedia.nextSongRequested();
+                }
+                else if(playing){
                     playMusic.pause();
                     playing = false;
                 }else{

@@ -23,10 +23,6 @@ void UMediaViewer::change_song()
     QDir musicDir(this->path->toString());
     QStringList files_list = musicDir.entryList(QStringList("*.mp3"), QDir::Files, QDir::Name);
     int i;
-    for(i = 0; i < files_list.size(); i++){
-        qDebug() << files_list[i];
-    }
-    qDebug() << "------------------------------\n";
     QTime now = QTime::currentTime();
     qsrand(now.msec());
     int selected = qrand() % (files_list.size() + 1);

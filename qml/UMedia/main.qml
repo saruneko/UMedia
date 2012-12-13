@@ -19,7 +19,7 @@ Rectangle {
 
     Audio {
         id: playMusic
-        source: "/home/gatox/Downloads/temp/Of Monsters And Men-My Head Is An Animal (2011) 320Kbit(mp3) DMT/06 - Of Monsters And Men - Little Talks.mp3"
+        source: ""
         autoLoad: true
 
         onStarted: {
@@ -28,9 +28,9 @@ Rectangle {
             cover.set_song_title(title, band);
         }
 
-//        onStopped: {
-//            songEnded();
-//        }
+        onStopped: {
+            songEnded();
+        }
     }
 
     Cover {
