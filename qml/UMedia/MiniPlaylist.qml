@@ -51,6 +51,16 @@ Rectangle {
         Keys.onReturnPressed: {
             umedia.play_song(view.model.get(view.currentIndex).path);
         }
+
+        MouseArea {
+            anchors.fill: parent
+
+            onClicked: {
+                var index = view.indexAt(mouseX, mouseY);
+                view.currentIndex = index;
+                umedia.play_song(view.model.get(index).path);
+            }
+        }
     }
 
     ScrollBar {
