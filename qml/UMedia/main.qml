@@ -34,10 +34,49 @@ Rectangle {
     }
 
     Cover {
-        id: cover
-        anchors.right: cover.anchors.left
+        id: cover2
+        image: "img/The-Killers-Sams-Town-371666.jpg"
 
         Behavior on x { PropertyAnimation{duration: 200} }
+        SequentialAnimation {
+            id: slide_cover2
+            running: false
+            NumberAnimation { target: cover2; property: "x"; to: umedia.width; duration: 200 }
+            NumberAnimation { target: cover2; property: "z"; to: 0; }
+            NumberAnimation { target: cover; property: "z"; to: 1; }
+            NumberAnimation { target: cover2; property: "x"; to: 0; }
+         }
+
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+
+            drag.target: cover2
+            drag.axis: Drag.XAxis
+
+            onReleased: {
+                if(cover2.x < (umedia.width / 2)){
+                    cover2.x = 0;
+                }
+                else if(cover2.x > (umedia.width / 2)){
+                    slide_cover2.running = true;
+                }
+            }
+        }
+    }
+
+    Cover {
+        id: cover
+
+        Behavior on x { PropertyAnimation{duration: 200} }
+        SequentialAnimation {
+            id: slide_cover
+            running: false
+            NumberAnimation { target: cover; property: "x"; to: umedia.width; duration: 200 }
+            NumberAnimation { target: cover; property: "z"; to: 0; }
+            NumberAnimation { target: cover2; property: "z"; to: 1; }
+            NumberAnimation { target: cover; property: "x"; to: 0; }
+         }
 
         MouseArea {
             anchors.fill: parent
@@ -51,10 +90,16 @@ Rectangle {
                     cover.x = 0;
                 }
                 else if(cover.x > (umedia.width / 2)){
-                    cover.x = umedia.width;
+                    slide_cover.running = true;
                 }
             }
         }
+    }
+
+    AnchorChanges {
+        target: cover
+        anchors.left: cover2.anchors.left
+        anchors.top: cover2.anchors.top
     }
 
     Controls {

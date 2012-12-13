@@ -6,6 +6,8 @@ Rectangle {
     width: parent.width
     height: parent.height - 80
 
+    property alias image: image_cover.source
+
     function set_song_title(title, band){
         var text = "<h2>" + band + "</h2><h3>" + title + "</h3>";
         txt_title.text = text;
@@ -18,7 +20,7 @@ Rectangle {
     }
 
     Image {
-        id: image
+        id: image_cover
         anchors.fill: parent
         anchors.centerIn: parent
         fillMode: Image.PreserveAspectFit
