@@ -21,7 +21,6 @@ Rectangle {
     Audio {
         id: playMusic
         source: ""
-        autoLoad: true
 
         onStarted: {
             var title = playMusic.metaData.title;
@@ -29,9 +28,11 @@ Rectangle {
             cover.set_song_title(title, band);
         }
 
-//        onStopped: {
-//            songEnded();
-//        }
+        onStatusChanged: {
+             if (status == Audio.EndOfMedia) {
+                 nextSongRequested();
+             }
+         }
     }
 
     Cover {
