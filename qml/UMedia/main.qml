@@ -124,13 +124,20 @@ Rectangle {
     }
 
     Keys.onSpacePressed: {
+        play_pressed();
+    }
+
+    function play_pressed(){
         if(playMusic.source == ""){
             umedia.nextSongRequested();
+            controls.play_image.source = "img/media_pause.png";
         }
         else if(playMusic.paused){
             playMusic.play();
+            controls.play_image.source = "img/media_pause.png";
         }else{
             playMusic.pause();
+            controls.play_image.source = "img/media_play.png";
         }
     }
 

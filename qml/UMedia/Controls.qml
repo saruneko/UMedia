@@ -10,6 +10,7 @@ Rectangle {
     border.color: "gray"
 
     property int buttons_top_margin: 35
+    property alias play_image: play_icon
 
     Image {
         anchors.fill: parent
@@ -33,9 +34,10 @@ Rectangle {
         anchors.top: controls.top
         anchors.leftMargin: 10
         anchors.topMargin: buttons_top_margin + 5
+        smooth: true
 
         Image {
-            source: "img/play.png"
+            source: "img/list.svg"
             height: 20
             width: 20
             anchors.centerIn: parent
@@ -57,7 +59,7 @@ Rectangle {
         anchors.topMargin: buttons_top_margin
 
         Image {
-            source: "img/play.png"
+            source: "img/media_previous.png"
             height: 30
             width: 30
             anchors.centerIn: parent
@@ -82,9 +84,10 @@ Rectangle {
         anchors.topMargin: buttons_top_margin
 
         Image {
-            source: "img/play.png"
-            height: 40
-            width: 40
+            id: play_icon
+            source: "img/media_play.png"
+            height: 50
+            width: 50
             anchors.centerIn: parent
             fillMode: Image.PreserveAspectFit
             smooth: true
@@ -95,14 +98,7 @@ Rectangle {
             anchors.fill: parent
 
             onPressed:  {
-                if(playMusic.source == ""){
-                    umedia.nextSongRequested();
-                }
-                else if(playMusic.paused){
-                    playMusic.play();
-                }else{
-                    playMusic.pause();
-                }
+                umedia.play_pressed();
             }
         }
     }
@@ -114,7 +110,7 @@ Rectangle {
         anchors.topMargin: buttons_top_margin
 
         Image {
-            source: "img/play.png"
+            source: "img/media_next.png"
             height: 30
             width: 30
             anchors.centerIn: parent
@@ -141,7 +137,7 @@ Rectangle {
         anchors.topMargin: buttons_top_margin + 5
 
         Image {
-            source: "img/play.png"
+            source: "img/media_stop.png"
             height: 20
             width: 20
             anchors.centerIn: parent
