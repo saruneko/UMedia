@@ -25,7 +25,7 @@ void UMediaViewer::change_song()
     int i;
     QTime now = QTime::currentTime();
     qsrand(now.msec());
-    int selected = qrand() % (files_list.size() + 1);
+    int selected = qrand() % files_list.size();
     QVariant path = musicDir.filePath(files_list[selected]);
     QMetaObject::invokeMethod(root, "play_song", Q_ARG(QVariant, path));
 }
