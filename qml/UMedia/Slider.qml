@@ -41,13 +41,21 @@ Item{
         }
 
         MouseArea {
+            id: slider_mouse
             anchors.fill: parent
+
             onClicked: {
                 var value = (mouseX * 100 / slider.width) * playMusic.duration / 100;
                 playMusic.position = value;
             }
-        }
 
+            onMouseXChanged: {
+                if(slider_mouse.pressed){
+                    var value = (mouseX * 100 / slider.width) * playMusic.duration / 100;
+                    playMusic.position = value;
+                }
+            }
+        }
     }
 
     function millisecondsToTime(milli)

@@ -92,6 +92,7 @@ Rectangle {
                 else if(cover.x > (umedia.width / 2)){
                     slide_cover.running = true;
                 }
+                console.log(mouseX);
             }
         }
     }
