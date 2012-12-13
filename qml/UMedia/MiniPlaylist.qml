@@ -22,7 +22,7 @@ Rectangle {
         Item {
             width: miniPlaylist.width; height: 40
             Column {
-                Text { text: "<b>" + name + "</b>"; color: "white" }
+                Text { text: "<b>" + title + "</b>"; color: "white" }
                 Text { text: artist; color: "white" }
             }
         }
@@ -47,6 +47,10 @@ Rectangle {
         transitions: Transition {
             NumberAnimation { properties: "opacity"; duration: 400 }
         }
+
+        Keys.onReturnPressed: {
+            umedia.play_song(view.model.get(view.currentIndex).path);
+        }
     }
 
     ScrollBar {
@@ -60,6 +64,6 @@ Rectangle {
     }
 
     function add_song(title, artist, path){
-        songModel.append({name: title, artist: artist, path: path});
+        songModel.append({title: title, artist: artist, path: path});
     }
 }

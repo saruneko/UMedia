@@ -127,6 +127,10 @@ Rectangle {
         play_pressed();
     }
 
+    Keys.onEscapePressed: {
+        toggle_mini_playlist_visibility();
+    }
+
     function play_pressed(){
         if(playMusic.source == ""){
             umedia.nextSongRequested();

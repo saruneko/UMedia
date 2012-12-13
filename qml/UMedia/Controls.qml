@@ -120,7 +120,6 @@ Rectangle {
 
         MouseArea {
             anchors.fill: parent
-
             onClicked: {
                 umedia.nextSongRequested();
             }
@@ -143,6 +142,13 @@ Rectangle {
             anchors.centerIn: parent
             fillMode: Image.PreserveAspectFit
             smooth: true
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                playMusic.stop();
+            }
         }
     }
 
