@@ -35,6 +35,7 @@ Rectangle {
 
     Cover {
         id: cover
+        anchors.right: cover.anchors.left
 
         Behavior on x { PropertyAnimation{duration: 200} }
 
