@@ -13,11 +13,14 @@ public:
 signals:
 
 public slots:
-    void change_song();
+    void previous_song();
+    void next_song();
 
 private:
     QObject *root;
     QUrl* path;
+    int previous_index;
+    int actual_index;
 
 };
 

@@ -59,6 +59,14 @@ Rectangle {
             fillMode: Image.PreserveAspectFit
             smooth: true
         }
+
+        MouseArea {
+            anchors.fill: parent
+
+            onClicked: {
+                umedia.previousSongRequested();
+            }
+        }
     }
     Button {
         id: btn_play

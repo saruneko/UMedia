@@ -10,6 +10,7 @@ Rectangle {
 
     signal songEnded
     signal nextSongRequested
+    signal previousSongRequested
 
     Image {
         anchors.fill: parent
@@ -28,9 +29,9 @@ Rectangle {
             cover.set_song_title(title, band);
         }
 
-        onStopped: {
-            songEnded();
-        }
+//        onStopped: {
+//            songEnded();
+//        }
     }
 
     Cover {
@@ -65,6 +66,49 @@ Rectangle {
         }
     }
 
+    Rectangle {
+        id: mini_playlist
+        //anchors.top: umedia.anchors.top
+        width: umedia.width / 2
+        height: umedia.height - 80
+        x: -width
+        color: "white"
+
+        property alias show: show_mini
+        property alias hide: hide_mini
+
+        NumberAnimation { id: show_mini; target: mini_playlist; property: "x"; to: 0; duration: 200 }
+        NumberAnimation { id: hide_mini; target: mini_playlist; property: "x"; to: -mini_playlist.width; duration: 200 }
+
+        Column {
+            spacing: 5
+            Text {
+                text: qsTr("Litte Talks")
+            }
+            Text {
+                text: qsTr("The kids aren't alright")
+            }
+            Text {
+                text: qsTr("Litte Talks")
+            }
+            Text {
+                text: qsTr("The kids aren't alright")
+            }
+            Text {
+                text: qsTr("Litte Talks")
+            }
+            Text {
+                text: qsTr("The kids aren't alright")
+            }
+            Text {
+                text: qsTr("Litte Talks")
+            }
+            Text {
+                text: qsTr("The kids aren't alright")
+            }
+        }
+    }
+
     Cover {
         id: cover
 
@@ -86,13 +130,16 @@ Rectangle {
             drag.axis: Drag.XAxis
 
             onReleased: {
-                if(cover.x < (umedia.width / 2)){
+                if(cover.x > ((umedia.width / 2) - 40) && cover.x < ((umedia.width / 2) + 40)){
+                    cover.x = (umedia.width / 2);
+                    mini_playlist.show.running = true;
+                }else if(cover.x < (umedia.width / 2)){
                     cover.x = 0;
+                    mini_playlist.hide.running = true;
                 }
                 else if(cover.x > (umedia.width / 2)){
                     slide_cover.running = true;
                 }
-                console.log(mouseX);
             }
         }
     }
