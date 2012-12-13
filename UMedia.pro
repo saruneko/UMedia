@@ -39,3 +39,6 @@ qtcAddDeployment()
 
 HEADERS += \
     umediaviewer.h
+
+QMAKE_CXXFLAGS += -I /usr/include/taglib -I /usr/include/taglib-extras
+QMAKE_LIBS += -ltag

@@ -9,7 +9,6 @@ Rectangle {
     border.width: 2
     border.color: "gray"
 
-    property bool playing: false
     property int buttons_top_margin: 35
 
     Image {
@@ -42,6 +41,12 @@ Rectangle {
             anchors.centerIn: parent
             fillMode: Image.PreserveAspectFit
             smooth: true
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                umedia.toggle_mini_playlist_visibility();
+            }
         }
     }
     Button {
@@ -93,12 +98,10 @@ Rectangle {
                 if(playMusic.source == ""){
                     umedia.nextSongRequested();
                 }
-                else if(playing){
-                    playMusic.pause();
-                    playing = false;
-                }else{
+                else if(playMusic.paused){
                     playMusic.play();
-                    playing = true;
+                }else{
+                    playMusic.pause();
                 }
             }
         }

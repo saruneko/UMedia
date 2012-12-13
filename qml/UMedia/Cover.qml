@@ -8,8 +8,8 @@ Rectangle {
 
     property alias image: image_cover.source
 
-    function set_song_title(title, band){
-        var text = "<h2>" + band + "</h2><h3>" + title + "</h3>";
+    function set_song_title(title, artist){
+        var text = "<h2>" + title + "</h2><h3>" + artist + "</h3>";
         txt_title.text = text;
     }
 

@@ -5,18 +5,14 @@ import QtMultimediaKit 1.1
 
 Rectangle {
     id: umedia
-    width: 350
-    height: 500
+    width: 400
+    height: 600
 
     signal songEnded
     signal nextSongRequested
     signal previousSongRequested
 
-    Image {
-        anchors.fill: parent
-        fillMode: Image.Tile
-        source: "img/bg-dark_grain.png"
-    }
+    Background{}
 
     Audio {
         id: playMusic
@@ -67,47 +63,8 @@ Rectangle {
         }
     }
 
-    Rectangle {
+    MiniPlaylist {
         id: mini_playlist
-        //anchors.top: umedia.anchors.top
-        width: umedia.width / 2
-        height: umedia.height - 80
-        x: -width
-        color: "white"
-
-        property alias show: show_mini
-        property alias hide: hide_mini
-
-        NumberAnimation { id: show_mini; target: mini_playlist; property: "x"; to: 0; duration: 200 }
-        NumberAnimation { id: hide_mini; target: mini_playlist; property: "x"; to: -mini_playlist.width; duration: 200 }
-
-        Column {
-            spacing: 5
-            Text {
-                text: qsTr("Litte Talks")
-            }
-            Text {
-                text: qsTr("The kids aren't alright")
-            }
-            Text {
-                text: qsTr("Litte Talks")
-            }
-            Text {
-                text: qsTr("The kids aren't alright")
-            }
-            Text {
-                text: qsTr("Litte Talks")
-            }
-            Text {
-                text: qsTr("The kids aren't alright")
-            }
-            Text {
-                text: qsTr("Litte Talks")
-            }
-            Text {
-                text: qsTr("The kids aren't alright")
-            }
-        }
     }
 
     Cover {
@@ -166,9 +123,34 @@ Rectangle {
          }
     }
 
+    Keys.onSpacePressed: {
+        if(playMusic.source == ""){
+            umedia.nextSongRequested();
+        }
+        else if(playMusic.paused){
+            playMusic.play();
+        }else{
+            playMusic.pause();
+        }
+    }
+
     function play_song(song_path){
         playMusic.source = song_path;
         playMusic.play();
+    }
+
+    function add_song(title, artist, path){
+        mini_playlist.add_song(title, artist, path);
+    }
+
+    function toggle_mini_playlist_visibility(){
+        if(mini_playlist.x == 0){
+            cover.x = 0;
+            mini_playlist.hide.running = true;
+        }else{
+            cover.x = (umedia.width / 2);
+            mini_playlist.show.running = true;
+        }
     }
 
 }

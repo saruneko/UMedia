@@ -2,6 +2,10 @@
 #define UMEDIAVIEWER_H
 
 #include <QtCore>
+#include <QImage>
+#include <taglib/id3v2header.h>
+#include <taglib/id3v2tag.h>
+#include <taglib/tag.h>
 #include "qmlapplicationviewer.h"
 
 class UMediaViewer : public QmlApplicationViewer
@@ -21,6 +25,10 @@ private:
     QUrl* path;
     int previous_index;
     int actual_index;
+
+    void load_songs();
+    QImage imageForFile(const char *file);
+    QImage imageForTag(TagLib::ID3v2::Tag *tag);
 
 };
 
