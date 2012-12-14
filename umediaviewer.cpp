@@ -9,14 +9,19 @@
 
 #include <QLabel>
 
-UMediaViewer::UMediaViewer(QWidget *parent) :
+UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
     QmlApplicationViewer(parent)
 {
     this->setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     this->setMainQmlFile(QLatin1String("qml/UMedia/main.qml"));
     this->showExpanded();
 
-    this->path = new QUrl("/home/gatox/Downloads/temp/Of Monsters And Men-My Head Is An Animal (2011) 320Kbit(mp3) DMT/" );
+    if(argc > 1){
+        qDebug() << argv[1];
+        this->path = new QUrl(argv[1]);
+    }else{
+        this->path = new QUrl("/home/gatox/Downloads/Of Monsters And Men-My Head Is An Animal (2011) 320Kbit(mp3) DMT/" );
+    }
 
     this->root = this->rootObject();
     QObject::connect(this->root, SIGNAL(songEnded()), this, SLOT(next_song()));
@@ -45,6 +50,13 @@ void UMediaViewer::load_songs()
             TagLib::FileRef f(musicDir.filePath(files_list[i]).toAscii());
             QString artist(f.tag()->artist().toCString());
             QString title(f.tag()->title().toCString());
+            if(title == ""){
+                title = info.baseName();
+            }
+            if(artist == ""){
+                artist = musicDir.dirName();
+            }
+            this->imageForFile(musicDir.filePath(files_list[i]).toAscii());
             QMetaObject::invokeMethod(root, "add_song", Q_ARG(QVariant, title), Q_ARG(QVariant, artist), Q_ARG(QVariant, path_song));
         }
     }
@@ -94,6 +106,11 @@ QImage UMediaViewer::imageForTag(TagLib::ID3v2::Tag *tag)
         static_cast<TagLib::ID3v2::AttachedPictureFrame *>(l.front());
 
     image.loadFromData((const uchar *) f->picture().data(), f->picture().size());
+    QFile fi("/home/gatox/Desktop/prueba.jpg");
+    fi.open(QIODevice::WriteOnly);
+    fi.write((const char *) f->picture().data(), f->picture().size());
+    fi.flush();
+    fi.close();
 
     return image;
 }

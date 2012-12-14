@@ -12,7 +12,7 @@ class UMediaViewer : public QmlApplicationViewer
 {
     Q_OBJECT
 public:
-    explicit UMediaViewer(QWidget *parent = 0);
+    explicit UMediaViewer(int argc, char *argv[], QWidget *parent = 0);
 
 signals:
 

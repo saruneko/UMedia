@@ -22,8 +22,8 @@ Rectangle {
         Item {
             width: miniPlaylist.width; height: 40
             Column {
-                Text { text: "<b>" + title + "</b>"; color: "white" }
-                Text { text: artist; color: "white" }
+                Text { text: "<b>" + title + "</b>"; color: "white"; width: miniPlaylist.width }
+                Text { text: artist; color: "white"; width: miniPlaylist.width }
             }
         }
     }
