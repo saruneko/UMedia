@@ -11,12 +11,6 @@ class UMediaViewer : public QmlApplicationViewer
 public:
     explicit UMediaViewer(int argc, char *argv[], QWidget *parent = 0);
 
-signals:
-
-public slots:
-    void previous_song();
-    void next_song();
-
 private:
     QObject *root;
     QString path;

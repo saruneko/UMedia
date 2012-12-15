@@ -8,10 +8,6 @@ Rectangle {
     width: 400
     height: 600
 
-    signal songEnded
-    signal nextSongRequested
-    signal previousSongRequested
-
     Background{}
 
     Audio {
@@ -20,7 +16,7 @@ Rectangle {
 
         onStatusChanged: {
              if (status == Audio.EndOfMedia) {
-                 nextSongRequested();
+                 currentPlaylist.next_song();
              }
          }
     }
@@ -147,16 +143,23 @@ Rectangle {
     ////////////////////////////////////////////////////////////////////////////
     // Functions
     ////////////////////////////////////////////////////////////////////////////
-    function play_song(title, artist, song_path){
-        //validar
-        //cover
-        playMusic.source = song_path;
-        playMusic.play();
-        cover.set_song_title(title, artist);
+    function play_song(title, artist, album, song_path){
+        // Validate song
+        if(songs.valid_song_file(song_path)){
+            //cover
+            var cover_path = songs.get_cover_path_for_song(artist, album);
+            cover.image = cover_path;
+            // Set song
+            playMusic.source = song_path;
+            playMusic.play();
+            cover.set_song_title(title, artist);
+        }else{
+            cover.set_error_message("Invalid Song", "This song can't be reproduced.");
+        }
     }
 
-    function add_song(title, artist, path){
-        currentPlaylist.add_song(title, artist, path);
+    function add_song(title, artist, album, path){
+        currentPlaylist.add_song(title, artist, album, path);
     }
 
     function toggle_current_playlist_visibility(){

@@ -8,11 +8,6 @@ Rectangle {
 
     property alias image: image_cover.source
 
-    function set_song_title(title, artist){
-        var text = "<h2>" + title + "</h2><h3>" + artist + "</h3>";
-        txt_title.text = text;
-    }
-
     Image {
         anchors.fill: parent
         fillMode: Image.Tile
@@ -24,7 +19,7 @@ Rectangle {
         anchors.fill: parent
         anchors.centerIn: parent
         fillMode: Image.PreserveAspectFit
-        source: "img/tumblr_mdruceP7NG1rluod9o1_500.jpg"
+        source: ""
     }
 
     Rectangle {
@@ -46,5 +41,18 @@ Rectangle {
         anchors.bottomMargin: 12
         anchors.left: cover.left
         anchors.leftMargin: (cover.width / 2) - (width / 2)
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Functions
+    ////////////////////////////////////////////////////////////////////////////
+    function set_song_title(title, artist){
+        var text = "<h2>" + title + "</h2><h3>" + artist + "</h3>";
+        txt_title.text = text;
+    }
+
+    function set_error_message(title, msg){
+        var text = "<h2><span style='color: #f00;'> " + title + "</span></h2><h3>" + msg + "</h3>";
+        txt_title.text = text;
     }
 }

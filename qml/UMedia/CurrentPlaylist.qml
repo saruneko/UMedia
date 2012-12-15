@@ -14,7 +14,7 @@ Rectangle {
     property alias show: show_playlist
     property alias hide: hide_playlist
     property int current_index: -1
-    property bool repeat: true
+    property bool repeat: false
     property bool shuffle: false
 
     NumberAnimation { id: show_playlist; target: currentPlaylist; property: "x"; to: 0; duration: 200 }
@@ -52,7 +52,11 @@ Rectangle {
         }
 
         Keys.onReturnPressed: {
-            _play_song_for_index(view.currentIndex);
+            if(currentPlaylist.x == 0){
+                _play_song_for_index(view.currentIndex);
+            }else{
+                controls.play_pressed();
+            }
         }
 
         MouseArea {
@@ -79,23 +83,23 @@ Rectangle {
     ////////////////////////////////////////////////////////////////////////////
     // Functions
     ////////////////////////////////////////////////////////////////////////////
-    function add_song(title, artist, path){
-        songModel.append({title: title, artist: artist, path: path});
+    function add_song(title, artist, album, path){
+        songModel.append({title: title, artist: artist, path: path, album: album});
     }
 
     function _play_song_for_index(index){
         var title = view.model.get(index).title;
         var artist = view.model.get(index).artist;
+        var album = view.model.get(index).album;
         var path = view.model.get(index).path;
         current_index = index;
-        umedia.play_song(title, artist, path);
+        umedia.play_song(title, artist, album, path);
     }
 
     function previous_song() {
         var i = shuffle ? (Math.random() * (view.count - 1)) : (current_index - 1);
         if (i < 0)
             i = repeat ? (view.count - 1) : 0;
-        current_index = i;
         _play_song_for_index(i);
     }
 
