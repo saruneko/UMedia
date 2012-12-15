@@ -16,7 +16,7 @@ UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
         qDebug() << argv[1];
         this->path = argv[1];
     }else{
-        this->path = "/home/gatox/Downloads/Of Monsters And Men-My Head Is An Animal (2011) 320Kbit(mp3) DMT/";
+        this->path = "";
     }
 
     this->root = this->rootObject();
