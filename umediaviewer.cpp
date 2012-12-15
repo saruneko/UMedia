@@ -3,7 +3,6 @@
 #include <QtGlobal>
 #include <QGraphicsObject>
 #include <QDeclarativeContext>
-#include <QDebug>
 
 UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
     QmlApplicationViewer(parent)
@@ -13,7 +12,6 @@ UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
     this->showExpanded();
 
     if(argc > 1){
-        qDebug() << argv[1];
         this->path = argv[1];
     }else{
         this->path = "/media/gatox/leeloo/musica/Polaris";

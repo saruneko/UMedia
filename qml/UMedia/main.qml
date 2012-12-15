@@ -109,6 +109,7 @@ Rectangle {
         width: controls.width
         height: 5
         anchors.bottom: controls.top
+        z: 2
 
         gradient: Gradient {
              GradientStop { position: 0.0; color: "#494848" }
