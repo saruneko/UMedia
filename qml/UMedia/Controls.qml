@@ -10,13 +10,8 @@ Rectangle {
     border.color: "gray"
 
     property int buttons_top_margin: 35
-    property alias play_image: play_icon
 
-    Image {
-        anchors.fill: parent
-        fillMode: Image.Tile
-        source: "img/bg-controls.png"
-    }
+    Background{ source: "img/bg-controls.png" }
 
     Slider {
         width: controls.width - 20
@@ -35,15 +30,10 @@ Rectangle {
         anchors.leftMargin: 10
         anchors.topMargin: buttons_top_margin + 5
         smooth: true
+        button_icon.source: "img/list.svg"
+        button_icon.height: 20
+        button_icon.width: 20
 
-        Image {
-            source: "img/list.svg"
-            height: 20
-            width: 20
-            anchors.centerIn: parent
-            fillMode: Image.PreserveAspectFit
-            smooth: true
-        }
         MouseArea {
             anchors.fill: parent
             onClicked: {
@@ -57,19 +47,10 @@ Rectangle {
         anchors.top: controls.top
         anchors.leftMargin: (umedia.width - 170) / 2
         anchors.topMargin: buttons_top_margin
-
-        Image {
-            source: "img/media_previous.png"
-            height: 30
-            width: 30
-            anchors.centerIn: parent
-            fillMode: Image.PreserveAspectFit
-            smooth: true
-        }
+        button_icon.source: "img/media_previous.png"
 
         MouseArea {
             anchors.fill: parent
-
             onClicked: {
                 currentPlaylist.previous_song();
             }
@@ -82,21 +63,13 @@ Rectangle {
         anchors.top: controls.top
         anchors.leftMargin: 5
         anchors.topMargin: buttons_top_margin
-
-        Image {
-            id: play_icon
-            source: "img/media_play.png"
-            height: 50
-            width: 50
-            anchors.centerIn: parent
-            fillMode: Image.PreserveAspectFit
-            smooth: true
-        }
+        button_icon.source: "img/media_play.png"
+        button_icon.height: 50
+        button_icon.width: 50
 
         MouseArea {
             id: playArea
             anchors.fill: parent
-
             onPressed:  {
                 play_pressed();
             }
@@ -108,15 +81,7 @@ Rectangle {
         anchors.top: controls.top
         anchors.leftMargin: 5
         anchors.topMargin: buttons_top_margin
-
-        Image {
-            source: "img/media_next.png"
-            height: 30
-            width: 30
-            anchors.centerIn: parent
-            fillMode: Image.PreserveAspectFit
-            smooth: true
-        }
+        button_icon.source: "img/media_next.png"
 
         MouseArea {
             anchors.fill: parent
@@ -134,15 +99,9 @@ Rectangle {
         anchors.top: controls.top
         anchors.rightMargin: 10
         anchors.topMargin: buttons_top_margin + 5
-
-        Image {
-            source: "img/media_stop.png"
-            height: 20
-            width: 20
-            anchors.centerIn: parent
-            fillMode: Image.PreserveAspectFit
-            smooth: true
-        }
+        button_icon.source: "img/media_stop.png"
+        button_icon.height: 20
+        button_icon.width: 20
 
         MouseArea {
             anchors.fill: parent
@@ -158,14 +117,14 @@ Rectangle {
     function play_pressed(){
         if(playMusic.source == ""){
             currentPlaylist.next_song();
-            controls.play_image.source = "img/media_pause.png";
+            btn_play.button_icon.source = "img/media_pause.png";
         }
         else if(playMusic.paused){
             playMusic.play();
-            controls.play_image.source = "img/media_pause.png";
+            btn_play.button_icon.source = "img/media_pause.png";
         }else{
             playMusic.pause();
-            controls.play_image.source = "img/media_play.png";
+            btn_play.button_icon.source = "img/media_play.png";
         }
     }
 

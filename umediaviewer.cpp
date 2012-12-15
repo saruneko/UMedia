@@ -15,6 +15,8 @@ UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
     if(argc > 1){
         qDebug() << argv[1];
         this->path = argv[1];
+    }else{
+        this->path = "/media/gatox/leeloo/musica/Polaris";
     }
 
     this->root = this->rootObject();

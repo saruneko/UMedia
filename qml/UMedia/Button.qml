@@ -7,13 +7,23 @@ Rectangle {
     height: 40
     smooth: true
     color: "transparent"
-//    border.width: 1
-//    border.color: "gray"
+
+    property alias back_image: background
+    property alias button_icon: btn_icon
 
     BorderImage {
         id: background
         source: "img/button.svg"
         anchors.fill: parent
+        smooth: true
+    }
+    Image {
+        id: btn_icon
+        source: ""
+        width: 30
+        height: 30
+        anchors.centerIn: parent
+        fillMode: Image.PreserveAspectFit
         smooth: true
     }
 }

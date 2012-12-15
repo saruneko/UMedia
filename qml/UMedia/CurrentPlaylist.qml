@@ -35,6 +35,7 @@ Rectangle {
         id: view
         anchors.fill: parent
         anchors.margins: 5
+        anchors.topMargin: 50
         model: ListModel { id: songModel }
         delegate: songDelegate
         highlight: Rectangle { width: view.width; color: "lightsteelblue"; radius: 4; opacity: 0.5; }
@@ -68,6 +69,10 @@ Rectangle {
                 _play_song_for_index(index);
             }
         }
+    }
+
+    PlaylistButtons{
+        id: playlistButtons
     }
 
     ScrollBar {

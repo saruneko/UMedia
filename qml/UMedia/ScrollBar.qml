@@ -51,7 +51,7 @@ Item {
     property real position
     property real pageSize
     property variant orientation : Qt.Vertical
-    property int offset: 5
+    property int offset: 90
     property real to_read: 0.33
 
     // A light, semi-transparent background
