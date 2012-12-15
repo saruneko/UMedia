@@ -98,7 +98,7 @@ Rectangle {
             anchors.fill: parent
 
             onPressed:  {
-                umedia.play_pressed();
+                play_pressed();
             }
         }
     }
