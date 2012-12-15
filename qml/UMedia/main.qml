@@ -63,8 +63,8 @@ Rectangle {
         }
     }
 
-    MiniPlaylist {
-        id: mini_playlist
+    CurrentPlaylist {
+        id: current_playlist
     }
 
     Cover {
@@ -90,10 +90,10 @@ Rectangle {
             onReleased: {
                 if(cover.x > ((umedia.width / 2) - 40) && cover.x < ((umedia.width / 2) + 40)){
                     cover.x = (umedia.width / 2);
-                    mini_playlist.show.running = true;
+                    current_playlist.show.running = true;
                 }else if(cover.x < (umedia.width / 2)){
                     cover.x = 0;
-                    mini_playlist.hide.running = true;
+                    current_playlist.hide.running = true;
                 }
                 else if(cover.x > (umedia.width / 2)){
                     slide_cover.running = true;
@@ -123,14 +123,36 @@ Rectangle {
          }
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Keys
+    ////////////////////////////////////////////////////////////////////////////
     Keys.onSpacePressed: {
         play_pressed();
     }
 
     Keys.onEscapePressed: {
-        toggle_mini_playlist_visibility();
+        toggle_current_playlist_visibility();
     }
 
+    Keys.onLeftPressed: {
+        if(playMusic.position >= 5000){
+            playMusic.position = playMusic.position - 5000;
+        }else{
+            playMusic.position = 0;
+        }
+    }
+
+    Keys.onRightPressed: {
+        if(playMusic.position < (playMusic.duration - 5000)){
+            playMusic.position = playMusic.position + 5000;
+        }else{
+            playMusic.position = playMusic.duration;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Functions
+    ////////////////////////////////////////////////////////////////////////////
     function play_pressed(){
         if(playMusic.source == ""){
             umedia.nextSongRequested();
@@ -151,16 +173,16 @@ Rectangle {
     }
 
     function add_song(title, artist, path){
-        mini_playlist.add_song(title, artist, path);
+        current_playlist.add_song(title, artist, path);
     }
 
-    function toggle_mini_playlist_visibility(){
-        if(mini_playlist.x == 0){
+    function toggle_current_playlist_visibility(){
+        if(current_playlist.x == 0){
             cover.x = 0;
-            mini_playlist.hide.running = true;
+            current_playlist.hide.running = true;
         }else{
             cover.x = (umedia.width / 2);
-            mini_playlist.show.running = true;
+            current_playlist.show.running = true;
         }
     }
 

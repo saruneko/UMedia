@@ -3,7 +3,7 @@ import QtQuick 1.1
 import QtMultimediaKit 1.1
 
 Rectangle {
-    id: miniPlaylist
+    id: currentPlaylist
     width: umedia.width / 2
     height: umedia.height - 80
     x: -width
@@ -11,19 +11,19 @@ Rectangle {
 
     Background{}
 
-    property alias show: show_mini
-    property alias hide: hide_mini
+    property alias show: show_playlist
+    property alias hide: hide_playlist
 
-    NumberAnimation { id: show_mini; target: mini_playlist; property: "x"; to: 0; duration: 200 }
-    NumberAnimation { id: hide_mini; target: mini_playlist; property: "x"; to: -mini_playlist.width; duration: 200 }
+    NumberAnimation { id: show_playlist; target: current_playlist; property: "x"; to: 0; duration: 200 }
+    NumberAnimation { id: hide_playlist; target: current_playlist; property: "x"; to: -current_playlist.width; duration: 200 }
 
     Component {
         id: songDelegate
         Item {
-            width: miniPlaylist.width; height: 40
+            width: currentPlaylist.width; height: 40
             Column {
-                Text { text: "<b>" + title + "</b>"; color: "white"; width: miniPlaylist.width }
-                Text { text: artist; color: "white"; width: miniPlaylist.width }
+                Text { text: "<b>" + title + "</b>"; color: "white"; width: currentPlaylist.width }
+                Text { text: artist; color: "white"; width: currentPlaylist.width }
             }
         }
     }

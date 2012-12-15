@@ -31,14 +31,16 @@ symbian:TARGET.CAPABILITY += NetworkServices
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    umediaviewer.cpp
+    umediaviewer.cpp \
+    songs.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    umediaviewer.h
+    umediaviewer.h \
+    songs.h
 
 QMAKE_CXXFLAGS += -I /usr/include/taglib -I /usr/include/taglib-extras
 QMAKE_LIBS += -ltag
