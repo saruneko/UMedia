@@ -25,4 +25,12 @@ UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
 
     // Set qml/c++ properties
     this->rootContext()->setContextProperty("songs", this->songs);
+
+    // Connect signals
+    QObject::connect(this->root, SIGNAL(playing_song(QString)), this, SLOT(change_title(QString)));
+}
+
+void UMediaViewer::change_title(QString title)
+{
+    this->setWindowTitle("UMedia - " + title);
 }

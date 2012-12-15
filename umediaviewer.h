@@ -11,6 +11,9 @@ class UMediaViewer : public QmlApplicationViewer
 public:
     explicit UMediaViewer(int argc, char *argv[], QWidget *parent = 0);
 
+public slots:
+    void change_title(QString title);
+
 private:
     QObject *root;
     QString path;

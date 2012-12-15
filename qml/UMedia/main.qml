@@ -8,6 +8,8 @@ Rectangle {
     width: 400
     height: 600
 
+    signal playing_song(string title)
+
     Background{}
 
     Audio {
@@ -156,6 +158,7 @@ Rectangle {
         }else{
             cover.set_error_message("Invalid Song", "This song can't be reproduced.");
         }
+        playing_song(title);
     }
 
     function add_song(title, artist, album, path){
