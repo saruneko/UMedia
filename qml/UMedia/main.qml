@@ -9,6 +9,8 @@ Rectangle {
     height: 600
 
     signal playing_song(string title)
+    signal repeat_changed(bool value)
+    signal shuffle_changed(bool value)
 
     Background{}
 
@@ -173,6 +175,14 @@ Rectangle {
             cover.x = (umedia.width / 2);
             currentPlaylist.show.running = true;
         }
+    }
+
+    function set_repeat(value){
+        currentPlaylist.repeat = value;
+    }
+
+    function set_shuffle(value){
+        currentPlaylist.shuffle = value;
     }
 
 }

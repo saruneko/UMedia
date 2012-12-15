@@ -13,10 +13,13 @@ public:
 
 public slots:
     void change_title(QString title);
+    void set_repeat_setting(bool value);
+    void set_shuffle_setting(bool value);
 
 private:
     QObject *root;
     QString path;
+    QSettings settings;
     Songs* songs;
 };
 

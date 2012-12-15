@@ -13,6 +13,7 @@ Rectangle {
 
     property alias show: show_playlist
     property alias hide: hide_playlist
+    property alias buttons: playlistButtons
     property int current_index: -1
     property bool repeat: false
     property bool shuffle: false
@@ -83,6 +84,22 @@ Rectangle {
         orientation: Qt.Vertical
         position: view.visibleArea.yPosition
         pageSize: view.visibleArea.heightRatio
+    }
+
+    onRepeatChanged: {
+        if(repeat){
+            playlistButtons.btn_repeat.color = "#2bb7d5";
+        }else{
+            playlistButtons.btn_repeat.color = "transparent";
+        }
+    }
+
+    onShuffleChanged: {
+        if(shuffle){
+            playlistButtons.btn_shuffle.color = "#2bb7d5";
+        }else{
+            playlistButtons.btn_shuffle.color = "transparent";
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////

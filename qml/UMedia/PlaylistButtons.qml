@@ -3,9 +3,13 @@ import QtQuick 1.1
 
 Rectangle {
     id: playlistButtons
-    Background{}
     width: currentPlaylist.width
     height: 50
+
+    property alias btn_repeat: repeat
+    property alias btn_shuffle: shuffle
+
+    Background{}
 
     Row {
         spacing: 5
@@ -34,11 +38,7 @@ Rectangle {
                 anchors.fill: parent
                 onPressed:  {
                     currentPlaylist.repeat = !currentPlaylist.repeat;
-                    if(currentPlaylist.repeat){
-                        repeat.color = "#2bb7d5";
-                    }else{
-                        repeat.color = "transparent";
-                    }
+                    umedia.repeat_changed(currentPlaylist.repeat);
                 }
             }
         }
@@ -56,11 +56,7 @@ Rectangle {
                 anchors.fill: parent
                 onPressed:  {
                     currentPlaylist.shuffle = !currentPlaylist.shuffle;
-                    if(currentPlaylist.shuffle){
-                        shuffle.color = "#2bb7d5";
-                    }else{
-                        shuffle.color = "transparent";
-                    }
+                    umedia.shuffle_changed(currentPlaylist.shuffle);
                 }
             }
         }
@@ -72,6 +68,15 @@ Rectangle {
             back_image.anchors.margins: 1
             radius: 5
             button_icon.source: ""
+
+            MouseArea {
+                anchors.fill: parent
+                onPressed:  {
+//                    currentPlaylist.width = umedia.width;
+                }
+            }
         }
     }
+
+
 }
