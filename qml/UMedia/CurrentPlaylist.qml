@@ -13,9 +13,12 @@ Rectangle {
 
     property alias show: show_playlist
     property alias hide: hide_playlist
+    property int current_index: -1
+    property bool repeat: true
+    property bool shuffle: false
 
-    NumberAnimation { id: show_playlist; target: current_playlist; property: "x"; to: 0; duration: 200 }
-    NumberAnimation { id: hide_playlist; target: current_playlist; property: "x"; to: -current_playlist.width; duration: 200 }
+    NumberAnimation { id: show_playlist; target: currentPlaylist; property: "x"; to: 0; duration: 200 }
+    NumberAnimation { id: hide_playlist; target: currentPlaylist; property: "x"; to: -currentPlaylist.width; duration: 200 }
 
     Component {
         id: songDelegate
@@ -34,7 +37,7 @@ Rectangle {
         anchors.margins: 5
         model: ListModel { id: songModel }
         delegate: songDelegate
-        highlight: Rectangle { color: "lightsteelblue"; radius: 4; opacity: 0.5; }
+        highlight: Rectangle { width: view.width; color: "lightsteelblue"; radius: 4; opacity: 0.5; }
         focus: true
 
         // Only show the scrollbars when the view is moving.
@@ -49,7 +52,7 @@ Rectangle {
         }
 
         Keys.onReturnPressed: {
-            umedia.play_song(view.model.get(view.currentIndex).path);
+            _play_song_for_index(view.currentIndex);
         }
 
         MouseArea {
@@ -58,7 +61,7 @@ Rectangle {
             onClicked: {
                 var index = view.indexAt(mouseX, mouseY);
                 view.currentIndex = index;
-                umedia.play_song(view.model.get(index).path);
+                _play_song_for_index(index);
             }
         }
     }
@@ -73,7 +76,38 @@ Rectangle {
         pageSize: view.visibleArea.heightRatio
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Functions
+    ////////////////////////////////////////////////////////////////////////////
     function add_song(title, artist, path){
         songModel.append({title: title, artist: artist, path: path});
+    }
+
+    function _play_song_for_index(index){
+        var title = view.model.get(index).title;
+        var artist = view.model.get(index).artist;
+        var path = view.model.get(index).path;
+        current_index = index;
+        umedia.play_song(title, artist, path);
+    }
+
+    function previous_song() {
+        var i = shuffle ? (Math.random() * (view.count - 1)) : (current_index - 1);
+        if (i < 0)
+            i = repeat ? (view.count - 1) : 0;
+        current_index = i;
+        _play_song_for_index(i);
+    }
+
+    function next_song() {
+        var i = shuffle ? (Math.random() * (view.count - 1)) : (current_index + 1);
+        if (i > view.count - 1) {
+            if (repeat) {
+                i = 0;
+            } else {
+                i = view.count - 1;
+            }
+        }
+        _play_song_for_index(i);
     }
 }

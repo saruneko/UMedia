@@ -47,7 +47,7 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                umedia.toggle_mini_playlist_visibility();
+                umedia.toggle_current_playlist_visibility();
             }
         }
     }
@@ -71,7 +71,7 @@ Rectangle {
             anchors.fill: parent
 
             onClicked: {
-                umedia.previousSongRequested();
+                currentPlaylist.previous_song();
             }
         }
     }
@@ -121,7 +121,7 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                umedia.nextSongRequested();
+                currentPlaylist.next_song();
             }
         }
     }
@@ -149,6 +149,23 @@ Rectangle {
             onClicked: {
                 playMusic.stop();
             }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Functions
+    ////////////////////////////////////////////////////////////////////////////
+    function play_pressed(){
+        if(playMusic.source == ""){
+            currentPlaylist.next_song();
+            controls.play_image.source = "img/media_pause.png";
+        }
+        else if(playMusic.paused){
+            playMusic.play();
+            controls.play_image.source = "img/media_pause.png";
+        }else{
+            playMusic.pause();
+            controls.play_image.source = "img/media_play.png";
         }
     }
 

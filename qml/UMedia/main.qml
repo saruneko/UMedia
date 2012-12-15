@@ -18,12 +18,6 @@ Rectangle {
         id: playMusic
         source: ""
 
-        onStarted: {
-            var title = playMusic.metaData.title;
-            var band = playMusic.metaData.albumArtist;
-            cover.set_song_title(title, band);
-        }
-
         onStatusChanged: {
              if (status == Audio.EndOfMedia) {
                  nextSongRequested();
@@ -64,7 +58,7 @@ Rectangle {
     }
 
     CurrentPlaylist {
-        id: current_playlist
+        id: currentPlaylist
     }
 
     Cover {
@@ -90,10 +84,10 @@ Rectangle {
             onReleased: {
                 if(cover.x > ((umedia.width / 2) - 40) && cover.x < ((umedia.width / 2) + 40)){
                     cover.x = (umedia.width / 2);
-                    current_playlist.show.running = true;
+                    currentPlaylist.show.running = true;
                 }else if(cover.x < (umedia.width / 2)){
                     cover.x = 0;
-                    current_playlist.hide.running = true;
+                    currentPlaylist.hide.running = true;
                 }
                 else if(cover.x > (umedia.width / 2)){
                     slide_cover.running = true;
@@ -127,7 +121,7 @@ Rectangle {
     // Keys
     ////////////////////////////////////////////////////////////////////////////
     Keys.onSpacePressed: {
-        play_pressed();
+        controls.play_pressed();
     }
 
     Keys.onEscapePressed: {
@@ -153,36 +147,25 @@ Rectangle {
     ////////////////////////////////////////////////////////////////////////////
     // Functions
     ////////////////////////////////////////////////////////////////////////////
-    function play_pressed(){
-        if(playMusic.source == ""){
-            umedia.nextSongRequested();
-            controls.play_image.source = "img/media_pause.png";
-        }
-        else if(playMusic.paused){
-            playMusic.play();
-            controls.play_image.source = "img/media_pause.png";
-        }else{
-            playMusic.pause();
-            controls.play_image.source = "img/media_play.png";
-        }
-    }
-
-    function play_song(song_path){
+    function play_song(title, artist, song_path){
+        //validar
+        //cover
         playMusic.source = song_path;
         playMusic.play();
+        cover.set_song_title(title, artist);
     }
 
     function add_song(title, artist, path){
-        current_playlist.add_song(title, artist, path);
+        currentPlaylist.add_song(title, artist, path);
     }
 
     function toggle_current_playlist_visibility(){
-        if(current_playlist.x == 0){
+        if(currentPlaylist.x == 0){
             cover.x = 0;
-            current_playlist.hide.running = true;
+            currentPlaylist.hide.running = true;
         }else{
             cover.x = (umedia.width / 2);
-            current_playlist.show.running = true;
+            currentPlaylist.show.running = true;
         }
     }
 
