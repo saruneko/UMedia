@@ -64,8 +64,8 @@ Rectangle {
         anchors.leftMargin: 5
         anchors.topMargin: buttons_top_margin
         button_icon.source: "img/media_play.png"
-        button_icon.height: 50
-        button_icon.width: 50
+        button_icon.height: 40
+        button_icon.width: 40
 
         MouseArea {
             id: playArea

@@ -12,6 +12,7 @@ public:
     explicit UMediaViewer(int argc, char *argv[], QWidget *parent = 0);
 
 public slots:
+    void add_songs();
     void change_title(QString title);
     void set_repeat_setting(bool value);
     void set_shuffle_setting(bool value);

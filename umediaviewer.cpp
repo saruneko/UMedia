@@ -3,6 +3,7 @@
 #include <QtGlobal>
 #include <QGraphicsObject>
 #include <QDeclarativeContext>
+#include <QFileDialog>
 
 UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
     QmlApplicationViewer(parent)
@@ -28,6 +29,7 @@ UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
     QObject::connect(this->root, SIGNAL(playing_song(QString)), this, SLOT(change_title(QString)));
     QObject::connect(this->root, SIGNAL(repeat_changed(bool)), this, SLOT(set_repeat_setting(bool)));
     QObject::connect(this->root, SIGNAL(shuffle_changed(bool)), this, SLOT(set_shuffle_setting(bool)));
+    QObject::connect(this->root, SIGNAL(add_songs()), this, SLOT(add_songs()));
 
     // Load Settings
     bool repeat = settings.value("playlist/repeat", false).toBool();
@@ -35,6 +37,14 @@ UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
 
     QMetaObject::invokeMethod(this->root, "set_repeat", Q_ARG(QVariant, repeat));
     QMetaObject::invokeMethod(this->root, "set_shuffle", Q_ARG(QVariant, shuffle));
+}
+
+void UMediaViewer::add_songs()
+{
+    QStringList files = QFileDialog::getOpenFileNames(this, "Add Songs",
+                                                      QDir::homePath(),
+                                                      "Music (*.mp3)");
+    this->songs->load_songs(files);
 }
 
 void UMediaViewer::change_title(QString title)

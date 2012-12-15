@@ -13,6 +13,12 @@ Songs::Songs(QObject* root, QObject *parent) :
   , root(root)
 {
     this->create_temp_folder();
+
+    // Load Generic covers
+    QDir currentDir = QDir(QDir::currentPath());
+    this->coverMap["0"] = currentDir.filePath("qml/UMedia/img/cover/mass_effect.jpg");
+    this->coverMap["1"] = currentDir.filePath("qml/UMedia/img/cover/einstein.jpg");
+    this->coverMap["2"] = currentDir.filePath("qml/UMedia/img/cover/evolution.jpg");
 }
 
 QString Songs::get_cover_path_for_song(const QString &artist, const QString &album)
@@ -20,9 +26,13 @@ QString Songs::get_cover_path_for_song(const QString &artist, const QString &alb
     QString cover_code = QString(QCryptographicHash::hash((artist + album).toAscii(), QCryptographicHash::Md5));
     if(this->coverMap.contains(cover_code)){
         return this->coverMap[cover_code];
-    }
+    }else{
+        QTime time = QTime::currentTime();
+        qsrand((uint)time.msec());
 
-    return "";
+        QString index = QString::number((rand() % 3));
+        return this->coverMap[index];
+    }
 }
 
 bool Songs::valid_song_file(const QString &file){
@@ -41,29 +51,41 @@ void Songs::load_songs(const QString &file)
     int i;
     for(i = 0; i < files_list.size(); i++){
         QString path_song = musicDir.filePath(files_list[i]);
-        QFileInfo info(path_song);
-        if(info.isFile() && info.isReadable()){
-            TagLib::FileRef f(musicDir.filePath(files_list[i]).toAscii());
-            QString artist(f.tag()->artist().toCString());
-            QString title(f.tag()->title().toCString());
-            QString album(f.tag()->album().toCString());
-            if(title == ""){
-                title = info.baseName();
-            }
-            if(artist == ""){
-                artist = musicDir.dirName();
-            }
-            if(album == ""){
-                artist = musicDir.dirName();
-            }
-            this->save_image_for_file(artist, album, musicDir.filePath(files_list[i]).toAscii());
-            QMetaObject::invokeMethod(root, "add_song", Q_ARG(QVariant, title), Q_ARG(QVariant, artist),
-                                      Q_ARG(QVariant, album), Q_ARG(QVariant, path_song));
-        }
+        this->append_song(path_song);
     }
 }
 
-void Songs::load_songs(const QStringList &files){}
+void Songs::load_songs(const QStringList &files)
+{
+    int i;
+    for(i = 0; i < files.size(); i++){
+        this->append_song(files[i]);
+    }
+}
+
+void Songs::append_song(const QString& file)
+{
+    QFileInfo info(file);
+    if(info.isFile() && info.isReadable()){
+        QDir dir(file);
+        TagLib::FileRef f(file.toLatin1());
+        QString artist(f.tag()->artist().toCString());
+        QString title(f.tag()->title().toCString());
+        QString album(f.tag()->album().toCString());
+        if(title == ""){
+            title = info.baseName();
+        }
+        if(artist == ""){
+            artist = dir.dirName();
+        }
+        if(album == ""){
+            artist = dir.dirName();
+        }
+        this->save_image_for_file(artist, album, file.toLatin1());
+        QMetaObject::invokeMethod(root, "add_song", Q_ARG(QVariant, title), Q_ARG(QVariant, artist),
+                                  Q_ARG(QVariant, album), Q_ARG(QVariant, file));
+    }
+}
 
 bool Songs::save_image_for_file(const QString& artist, const QString& album, const char *file)
 {

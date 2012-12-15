@@ -8,6 +8,7 @@ Rectangle {
     width: 400
     height: 600
 
+    signal add_songs
     signal playing_song(string title)
     signal repeat_changed(bool value)
     signal shuffle_changed(bool value)

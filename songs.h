@@ -15,7 +15,7 @@ public:
     Q_INVOKABLE QString get_cover_path_for_song(const QString &artist, const QString &album);
     Q_INVOKABLE bool valid_song_file(const QString &file);
 
-    void load_songs(const QString &file);
+    void load_songs(const QString &path);
     void load_songs(const QStringList &files);
 
 signals:
@@ -29,6 +29,7 @@ private:
 
     bool save_image_for_file(const QString& artist, const QString& album, const char *file);
     void create_temp_folder();
+    void append_song(const QString& file);
 };
 
 #endif // SONGS_H

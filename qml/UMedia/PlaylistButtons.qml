@@ -22,7 +22,14 @@ Rectangle {
             color: "transparent"
             back_image.anchors.margins: 1
             radius: 5
-            button_icon.source: ""
+            button_icon.source: "img/plus.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onPressed:  {
+                    umedia.add_songs();
+                }
+            }
         }
         Button {
             id: repeat
