@@ -3,6 +3,11 @@ UMedia
 
 Music Player
 
+## Version
+
+-  Current: 0.1
+
+
 ## Dependencies
 
 -  sudo apt-get install qt4-dev-tools, libdeclarative-multimedia, libtag1-dev
