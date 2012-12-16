@@ -22,3 +22,13 @@ Before the "qmake" command after an update.
 ## Executing
 
 ./UMedia [path-to-music-folder]
+
+
+## Useful Shortcuts
+
+-  Space: Play/Pause
+-  Enter: Select song in playlist
+-  Up/Down arrow: move selection in playlist
+-  Left/Right arrow: move song position
+-  Esc: Show/Hide Playlist
+-  Tab (With Playlist visible): Expand/Collapse playlist
