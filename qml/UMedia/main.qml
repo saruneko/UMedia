@@ -69,7 +69,7 @@ Rectangle {
         SequentialAnimation {
             id: slide_cover
             running: false
-            NumberAnimation { target: cover; property: "x"; to: umedia.width; duration: 200 }
+            NumberAnimation { target: cover; property: "x"; to: -cover.width; duration: 200 }
             NumberAnimation { target: cover; property: "z"; to: 0; }
             NumberAnimation { target: cover2; property: "z"; to: 1; }
             NumberAnimation { target: cover; property: "x"; to: 0; }
@@ -83,7 +83,10 @@ Rectangle {
             drag.axis: Drag.XAxis
 
             onReleased: {
-                if(cover.x > ((umedia.width / 2) - 40) && cover.x < ((umedia.width / 2) + 40)){
+                if(mouseX > (umedia.width / 2) && cover.x < (umedia.width / 2)){
+                    slide_cover.running = true;
+                }
+                else if(cover.x > ((umedia.width / 2) - 40) && cover.x < ((umedia.width / 2) + 40)){
                     cover.x = (umedia.width / 2);
                     currentPlaylist.show.running = true;
                 }else if(cover.x < (umedia.width / 2)){
@@ -91,7 +94,8 @@ Rectangle {
                     currentPlaylist.hide.running = true;
                 }
                 else if(cover.x > (umedia.width / 2)){
-                    slide_cover.running = true;
+                    cover.x = umedia.width;
+                    toggle_current_playlist_expanded();
                 }
             }
         }
@@ -148,6 +152,9 @@ Rectangle {
 
     Keys.onTabPressed: {
         if(currentPlaylist.x == 0){
+            if(cover.x == umedia.width){
+                cover.x = (umedia.width / 2);
+            }
             toggle_current_playlist_expanded();
         }
     }

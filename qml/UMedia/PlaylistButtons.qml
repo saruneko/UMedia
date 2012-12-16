@@ -83,7 +83,33 @@ Rectangle {
                 }
             }
         }
+        Button {
+            id: search
+            width: 40
+            height: 40
+            color: "transparent"
+            back_image.anchors.margins: 1
+            radius: 5
+            button_icon.source: "img/search.png"
+            opacity: 0
+
+            MouseArea {
+                anchors.fill: parent
+                onPressed:  {
+                    currentPlaylist.toggle_search_widget_visibility();
+                }
+            }
+
+            Behavior on opacity { NumberAnimation { duration: 200 } }
+        }
     }
 
+    onWidthChanged: {
+        if(playlistButtons.width == umedia.width){
+            search.opacity = 1;
+        }else{
+            search.opacity = 0;
+        }
+    }
 
 }

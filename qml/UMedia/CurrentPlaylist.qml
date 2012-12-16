@@ -121,6 +121,13 @@ Rectangle {
     }
 
     ////////////////////////////////////////////////////////////////////////////
+    // Search Component
+    ////////////////////////////////////////////////////////////////////////////
+    SearchWidget {
+        id: searchWidget
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
     // Functions
     ////////////////////////////////////////////////////////////////////////////
     function add_song(title, artist, album, path){
@@ -153,5 +160,13 @@ Rectangle {
             }
         }
         _play_song_for_index(i);
+    }
+
+    function toggle_search_widget_visibility(){
+        if(searchWidget.opacity == 0){
+            searchWidget.opacity = 1;
+        }else{
+            searchWidget.opacity = 0;
+        }
     }
 }
