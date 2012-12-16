@@ -74,7 +74,7 @@ Rectangle {
             color: "transparent"
             back_image.anchors.margins: 1
             radius: 5
-            button_icon.source: ""
+            button_icon.source: "img/expand_icon.png"
 
             MouseArea {
                 anchors.fill: parent
