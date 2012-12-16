@@ -32,3 +32,9 @@ Before the "qmake" command after an update.
 -  Left/Right arrow: move song position
 -  Esc: Show/Hide Playlist
 -  Tab (With Playlist visible): Expand/Collapse playlist
+
+## Actions with the Mouse
+
+-  Grab the Album Cover and slide it to the center to show the playlist
+-  Grab the Album Cover (from the center, when the playlist is visible) and slide it to the left to hide the playlist
+-  Grab the Album Cover and slide it to the right to show the playlist expanded
