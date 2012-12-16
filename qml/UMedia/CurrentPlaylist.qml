@@ -13,13 +13,29 @@ Rectangle {
 
     property alias show: show_playlist
     property alias hide: hide_playlist
+    property alias show_expanded: show_playlist_expanded
+    property alias hide_expanded: hide_playlist_expanded
     property alias buttons: playlistButtons
     property int current_index: -1
     property bool repeat: false
     property bool shuffle: false
 
     NumberAnimation { id: show_playlist; target: currentPlaylist; property: "x"; to: 0; duration: 200 }
-    NumberAnimation { id: hide_playlist; target: currentPlaylist; property: "x"; to: -currentPlaylist.width; duration: 200 }
+    SequentialAnimation {
+        id: hide_playlist
+        NumberAnimation { target: currentPlaylist; property: "x"; to: -currentPlaylist.width; duration: 200 }
+        NumberAnimation { target: currentPlaylist; property: "width"; to: (umedia.width / 2); duration: 200 }
+    }
+    ParallelAnimation {
+        id: show_playlist_expanded
+        NumberAnimation { target: currentPlaylist; property: "width"; to: umedia.width; duration: 200 }
+        NumberAnimation { target: currentPlaylist; property: "x"; to: 0; duration: 200 }
+    }
+    ParallelAnimation {
+        id: hide_playlist_expanded
+        NumberAnimation { target: currentPlaylist; property: "width"; to: (umedia.width / 2); duration: 200 }
+        NumberAnimation { target: currentPlaylist; property: "x"; to: 0; duration: 200 }
+    }
 
     Component {
         id: songDelegate

@@ -43,7 +43,7 @@ void UMediaViewer::add_songs()
 {
     QStringList files = QFileDialog::getOpenFileNames(this, "Add Songs",
                                                       QDir::homePath(),
-                                                      "Music (*.mp3)");
+                                                      "Music (*.mp3; *.mp4)");
     this->songs->load_songs(files);
 }
 

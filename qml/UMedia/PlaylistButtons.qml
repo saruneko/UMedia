@@ -79,7 +79,7 @@ Rectangle {
             MouseArea {
                 anchors.fill: parent
                 onPressed:  {
-//                    currentPlaylist.width = umedia.width;
+                    umedia.toggle_current_playlist_expanded();
                 }
             }
         }

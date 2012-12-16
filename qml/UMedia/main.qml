@@ -179,6 +179,16 @@ Rectangle {
         }
     }
 
+    function toggle_current_playlist_expanded(){
+        if(currentPlaylist.width == umedia.width){
+            currentPlaylist.z = 1;
+            currentPlaylist.hide_expanded.running = true;
+        }else{
+            currentPlaylist.z = 1;
+            currentPlaylist.show_expanded.running = true;
+        }
+    }
+
     function set_repeat(value){
         currentPlaylist.repeat = value;
     }
