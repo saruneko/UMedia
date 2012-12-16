@@ -55,6 +55,7 @@ Rectangle{
 
         Keys.onDownPressed: {
             searchWidget.searchList.focus = true;
+            event.accepted = false;
         }
 
         Keys.onReleased: {

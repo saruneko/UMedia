@@ -51,6 +51,10 @@ Rectangle {
                     event.accepted = false;
                 }
             }
+
+            Keys.onReturnPressed: {
+                searchInput._play_song_from_search();
+            }
         }
     }
 
