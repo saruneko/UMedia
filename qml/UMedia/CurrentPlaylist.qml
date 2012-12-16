@@ -1,6 +1,6 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
-import QtMultimediaKit 1.1
+import Qt 4.7
 
 Rectangle {
     id: currentPlaylist
@@ -81,11 +81,17 @@ Rectangle {
             }
         }
 
+        Keys.onPressed: {
+            if(event.key == Qt.Key_Q){
+
+            }
+        }
+
         MouseArea {
             anchors.fill: parent
 
             onClicked: {
-                var index = view.indexAt(mouseX, mouseY);
+                var index = view.indexAt(mouseX, mouseY + view.contentY);
                 view.currentIndex = index;
                 _play_song_for_index(index);
             }
