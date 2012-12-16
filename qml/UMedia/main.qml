@@ -60,6 +60,7 @@ Rectangle {
 
     CurrentPlaylist {
         id: currentPlaylist
+        playlistItems.focus: true
     }
 
     Cover {
@@ -162,15 +163,9 @@ Rectangle {
 
     Keys.onMenuPressed: {
         if(currentPlaylist.searchEnabled == 0){
-            if(currentPlaylist.x != 0){
-                toggle_current_playlist_expanded();
-                currentPlaylist.toggle_search_widget_visibility();
-            }else if(currentPlaylist.x == 0 && currentPlaylist.width != umedia.width){
-                toggle_current_playlist_expanded();
-                currentPlaylist.toggle_search_widget_visibility();
-            }else{
-                currentPlaylist.toggle_search_widget_visibility();
-            }
+            currentPlaylist.z = 1;
+            currentPlaylist.show_expanded.running = true;
+            currentPlaylist.toggle_search_widget_visibility();
         }else{
             currentPlaylist.toggle_search_widget_visibility();
         }
@@ -217,6 +212,7 @@ Rectangle {
             currentPlaylist.hide_expanded.running = true;
             if(currentPlaylist.searchEnabled == 1){
                 currentPlaylist.toggle_search_widget_visibility();
+                cover.x = (umedia.width / 2);
             }
         }else{
             currentPlaylist.z = 1;

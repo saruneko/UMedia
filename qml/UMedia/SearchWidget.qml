@@ -11,6 +11,7 @@ Rectangle {
     opacity: 0
 
     property alias searchInput: search_input
+    property alias searchList: view
 
     Background {}
 
@@ -43,21 +44,44 @@ Rectangle {
             highlight: Rectangle { width: view.width; color: "lightsteelblue"; radius: 4; opacity: 0.5; }
             focus: true
 
-            Keys.onReturnPressed: {
-//                if(currentPlaylist.x == 0){
-//                    _play_song_for_index(view.currentIndex);
-//                }else{
-//                    controls.play_pressed();
-//                }
+            Keys.onUpPressed: {
+                if(view.currentIndex == 0){
+                    searchInput.textSearch.focus = true;
+                }else{
+                    event.accepted = false;
+                }
             }
         }
     }
 
-    Component.onCompleted: {
-        songModel.append({title: "title", artist: "artist", path: "path", album: "album"});
-        songModel.append({title: "title", artist: "artist", path: "path", album: "album"});
-        songModel.append({title: "title", artist: "artist", path: "path", album: "album"});
-        songModel.append({title: "title", artist: "artist", path: "path", album: "album"});
+    onOpacityChanged: {
+        if(opacity == 1){
+            load_songs();
+        }
+    }
+
+    function load_songs(){
+        for(var i=0; i < currentPlaylist.playlistItems.count; i++){
+            var title = currentPlaylist.playlistItems.model.get(i).title;
+            var artist = currentPlaylist.playlistItems.model.get(i).artist;
+            var album = currentPlaylist.playlistItems.model.get(i).album;
+            var path = currentPlaylist.playlistItems.model.get(i).path;
+            songModel.append({title: title, artist: artist, path: path, album: album});
+        }
+    }
+
+    function filter_list(text){
+        view.model.clear();
+        for(var i=0; i < currentPlaylist.playlistItems.count; i++){
+            var title = currentPlaylist.playlistItems.model.get(i).title;
+            if(!(new RegExp(text, "i")).test(title)){
+                continue;
+            }
+            var artist = currentPlaylist.playlistItems.model.get(i).artist;
+            var album = currentPlaylist.playlistItems.model.get(i).album;
+            var path = currentPlaylist.playlistItems.model.get(i).path;
+            songModel.append({title: title, artist: artist, path: path, album: album});
+        }
     }
 
 }

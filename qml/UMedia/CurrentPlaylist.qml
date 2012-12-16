@@ -11,6 +11,7 @@ Rectangle {
 
     Background{}
 
+    property alias playlistItems: view
     property alias show: show_playlist
     property alias hide: hide_playlist
     property alias show_expanded: show_playlist_expanded
