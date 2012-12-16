@@ -109,12 +109,13 @@ Rectangle {
 
     Controls {
         id: controls
+        z: 2
     }
     Rectangle {
         width: controls.width
         height: 5
         anchors.bottom: controls.top
-        z: 2
+        z: 3
 
         gradient: Gradient {
              GradientStop { position: 0.0; color: "#494848" }
@@ -159,6 +160,22 @@ Rectangle {
         }
     }
 
+    Keys.onMenuPressed: {
+        if(currentPlaylist.searchEnabled == 0){
+            if(currentPlaylist.x != 0){
+                toggle_current_playlist_expanded();
+                currentPlaylist.toggle_search_widget_visibility();
+            }else if(currentPlaylist.x == 0 && currentPlaylist.width != umedia.width){
+                toggle_current_playlist_expanded();
+                currentPlaylist.toggle_search_widget_visibility();
+            }else{
+                currentPlaylist.toggle_search_widget_visibility();
+            }
+        }else{
+            currentPlaylist.toggle_search_widget_visibility();
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////
     // Functions
     ////////////////////////////////////////////////////////////////////////////
@@ -186,6 +203,9 @@ Rectangle {
         if(currentPlaylist.x == 0){
             cover.x = 0;
             currentPlaylist.hide.running = true;
+            if(currentPlaylist.searchEnabled == 1){
+                currentPlaylist.toggle_search_widget_visibility();
+            }
         }else{
             cover.x = (umedia.width / 2);
             currentPlaylist.show.running = true;
@@ -195,6 +215,9 @@ Rectangle {
     function toggle_current_playlist_expanded(){
         if(currentPlaylist.width == umedia.width){
             currentPlaylist.hide_expanded.running = true;
+            if(currentPlaylist.searchEnabled == 1){
+                currentPlaylist.toggle_search_widget_visibility();
+            }
         }else{
             currentPlaylist.z = 1;
             currentPlaylist.show_expanded.running = true;

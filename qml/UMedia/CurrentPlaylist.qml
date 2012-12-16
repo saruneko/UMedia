@@ -16,6 +16,7 @@ Rectangle {
     property alias show_expanded: show_playlist_expanded
     property alias hide_expanded: hide_playlist_expanded
     property alias buttons: playlistButtons
+    property alias searchEnabled: searchWidget.opacity
     property int current_index: -1
     property bool repeat: false
     property bool shuffle: false
@@ -165,8 +166,10 @@ Rectangle {
     function toggle_search_widget_visibility(){
         if(searchWidget.opacity == 0){
             searchWidget.opacity = 1;
+            searchWidget.searchInput.textSearch.focus = true;
         }else{
             searchWidget.opacity = 0;
+            view.focus = true;
         }
     }
 }
