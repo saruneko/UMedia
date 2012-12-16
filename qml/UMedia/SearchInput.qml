@@ -55,7 +55,7 @@ Rectangle{
 
         Keys.onDownPressed: {
             searchWidget.searchList.focus = true;
-            event.accepted = false;
+            searchWidget.searchList.currentIndex = 1;
         }
 
         Keys.onReleased: {
