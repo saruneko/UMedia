@@ -143,6 +143,7 @@ Rectangle {
         var path = view.model.get(index).path;
         current_index = index;
         umedia.play_song(title, artist, album, path);
+        view.currentIndex = index;
     }
 
     function previous_song() {
@@ -153,7 +154,7 @@ Rectangle {
     }
 
     function next_song() {
-        var i = shuffle ? (Math.random() * (view.count - 1)) : (current_index + 1);
+        var i = shuffle ? parseInt(Math.random() * (view.count - 1)) : (current_index + 1);
         if (i > view.count - 1) {
             if (repeat) {
                 i = 0;
