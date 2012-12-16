@@ -32,6 +32,7 @@ Before the "qmake" command after an update.
 -  Left/Right arrow: move song position
 -  Esc: Show/Hide Playlist
 -  Tab (With Playlist visible): Expand/Collapse playlist
+-  Menu Key: Show/Hide Search
 
 ## Actions with the Mouse
 
