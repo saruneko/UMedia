@@ -60,6 +60,7 @@ Rectangle {
 
     onOpacityChanged: {
         if(opacity == 1){
+            searchInput.textSearch.selectAll();
             load_songs();
         }
     }
