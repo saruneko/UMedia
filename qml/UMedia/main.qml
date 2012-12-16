@@ -146,6 +146,12 @@ Rectangle {
         }
     }
 
+    Keys.onTabPressed: {
+        if(currentPlaylist.x == 0){
+            toggle_current_playlist_expanded();
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////
     // Functions
     ////////////////////////////////////////////////////////////////////////////
@@ -181,7 +187,6 @@ Rectangle {
 
     function toggle_current_playlist_expanded(){
         if(currentPlaylist.width == umedia.width){
-            currentPlaylist.z = 1;
             currentPlaylist.hide_expanded.running = true;
         }else{
             currentPlaylist.z = 1;

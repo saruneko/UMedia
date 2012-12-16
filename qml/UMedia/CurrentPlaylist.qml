@@ -24,6 +24,7 @@ Rectangle {
     SequentialAnimation {
         id: hide_playlist
         NumberAnimation { target: currentPlaylist; property: "x"; to: -currentPlaylist.width; duration: 200 }
+        NumberAnimation { target: currentPlaylist; property: "z"; to: 0; duration: 200 }
         NumberAnimation { target: currentPlaylist; property: "width"; to: (umedia.width / 2); duration: 200 }
     }
     ParallelAnimation {
@@ -35,6 +36,7 @@ Rectangle {
         id: hide_playlist_expanded
         NumberAnimation { target: currentPlaylist; property: "width"; to: (umedia.width / 2); duration: 200 }
         NumberAnimation { target: currentPlaylist; property: "x"; to: 0; duration: 200 }
+        NumberAnimation { target: currentPlaylist; property: "z"; to: 0; duration: 200 }
     }
 
     Component {
