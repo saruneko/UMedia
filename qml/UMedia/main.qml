@@ -137,7 +137,9 @@ Rectangle {
     }
 
     Keys.onLeftPressed: {
-        if(playMusic.position >= 5000){
+        if(event.modifiers & Qt.ControlModifier){
+            currentPlaylist.previous_song();
+        }else if(playMusic.position >= 5000){
             playMusic.position = playMusic.position - 5000;
         }else{
             playMusic.position = 0;
@@ -145,7 +147,9 @@ Rectangle {
     }
 
     Keys.onRightPressed: {
-        if(playMusic.position < (playMusic.duration - 5000)){
+        if(event.modifiers & Qt.ControlModifier){
+            currentPlaylist.next_song();
+        }else if(playMusic.position < (playMusic.duration - 5000)){
             playMusic.position = playMusic.position + 5000;
         }else{
             playMusic.position = playMusic.duration;

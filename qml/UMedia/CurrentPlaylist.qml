@@ -143,13 +143,15 @@ Rectangle {
     }
 
     function _play_song_for_index(index){
-        var title = view.model.get(index).title;
-        var artist = view.model.get(index).artist;
-        var album = view.model.get(index).album;
-        var path = view.model.get(index).path;
-        current_index = index;
-        umedia.play_song(title, artist, album, path);
-        view.currentIndex = index;
+        if(index < view.count){
+            var title = view.model.get(index).title;
+            var artist = view.model.get(index).artist;
+            var album = view.model.get(index).album;
+            var path = view.model.get(index).path;
+            current_index = index;
+            umedia.play_song(title, artist, album, path);
+            view.currentIndex = index;
+        }
     }
 
     function previous_song() {
