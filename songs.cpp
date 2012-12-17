@@ -68,7 +68,7 @@ void Songs::append_song(const QString& file)
     QFileInfo info(file);
     if(info.isFile() && info.isReadable()){
         QDir dir(file);
-        TagLib::FileRef f(file.toLatin1());
+        TagLib::FileRef f(file.toUtf8());
         QString artist(f.tag()->artist().toCString());
         QString title(f.tag()->title().toCString());
         QString album(f.tag()->album().toCString());
