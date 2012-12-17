@@ -38,6 +38,8 @@ Before the "qmake" command after an update.
 -  Esc: Show/Hide Playlist
 -  Tab (With Playlist visible): Expand/Collapse playlist
 -  Menu Key: Show/Hide Search
+-  Ctrl + Right Arrow: Next Song
+-  Ctrl + Left Arrow: Previous Song
 
 ## Actions with the Mouse
 
