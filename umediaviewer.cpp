@@ -28,6 +28,8 @@ UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
     QObject::connect(this->root, SIGNAL(repeat_changed(bool)), this, SLOT(set_repeat_setting(bool)));
     QObject::connect(this->root, SIGNAL(shuffle_changed(bool)), this, SLOT(set_shuffle_setting(bool)));
     QObject::connect(this->root, SIGNAL(add_songs()), this, SLOT(add_songs()));
+    QObject::connect(this->root, SIGNAL(add_folder()), this, SLOT(add_folder()));
+    QObject::connect(this->root, SIGNAL(add_from_youtube(QString)), this, SLOT(add_from_youtube(QString)));
 
     // Load Settings
     bool repeat = settings.value("playlist/repeat", false).toBool();
@@ -35,6 +37,12 @@ UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
 
     QMetaObject::invokeMethod(this->root, "set_repeat", Q_ARG(QVariant, repeat));
     QMetaObject::invokeMethod(this->root, "set_shuffle", Q_ARG(QVariant, shuffle));
+
+    // Downloader
+    this->downloader = new YouTubeDownloader(this->root, this->songs, this);
+//    this->downloader->start_download("http://youtu.be/95wSxkoH-wQ");
+//    this->downloader->start_download("http://youtu.be/95wSx");
+//    this->downloader->start_download("http://youtu.be/QB0ordd2nOI");
 }
 
 void UMediaViewer::add_songs()
@@ -43,6 +51,18 @@ void UMediaViewer::add_songs()
                                                       QDir::homePath(),
                                                       "Music (*.mp3)");
     this->songs->load_songs(files);
+}
+
+void UMediaViewer::add_folder()
+{
+    QString directory = QFileDialog::getExistingDirectory(this, "Add Music Folder",
+                                                          QDir::homePath());
+    this->songs->load_songs(directory);
+}
+
+void UMediaViewer::add_from_youtube(QString url)
+{
+    this->downloader->start_download(url);
 }
 
 void UMediaViewer::change_title(QString title)

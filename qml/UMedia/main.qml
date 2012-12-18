@@ -9,6 +9,8 @@ Rectangle {
     height: 600
 
     signal add_songs
+    signal add_folder
+    signal add_from_youtube(string url)
     signal playing_song(string title)
     signal repeat_changed(bool value)
     signal shuffle_changed(bool value)
@@ -125,6 +127,10 @@ Rectangle {
          }
     }
 
+    Notification {
+        id: notification
+    }
+
     ////////////////////////////////////////////////////////////////////////////
     // Keys
     ////////////////////////////////////////////////////////////////////////////
@@ -175,6 +181,19 @@ Rectangle {
         }
     }
 
+    Keys.onPressed: {
+        if(event.key == Qt.Key_A){
+            if(currentPlaylist.addSongs.opacity == 0){
+                currentPlaylist.addSongs.opacity = 1;
+                if(currentPlaylist.x != 0){
+                    toggle_current_playlist_visibility();
+                }
+            }else{
+                currentPlaylist.addSongs.opacity = 0;
+            }
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////
     // Functions
     ////////////////////////////////////////////////////////////////////////////
@@ -205,6 +224,7 @@ Rectangle {
             if(currentPlaylist.searchEnabled == 1){
                 currentPlaylist.toggle_search_widget_visibility();
             }
+            currentPlaylist.addSongs.opacity = 0;
         }else{
             cover.x = (umedia.width / 2);
             currentPlaylist.show.running = true;
@@ -230,6 +250,11 @@ Rectangle {
 
     function set_shuffle(value){
         currentPlaylist.shuffle = value;
+    }
+
+    function show_notification(text){
+        notification.text.text = text;
+        notification.showNotification.running = true;
     }
 
 }

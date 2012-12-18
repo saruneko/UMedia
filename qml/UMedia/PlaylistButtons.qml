@@ -27,7 +27,11 @@ Rectangle {
             MouseArea {
                 anchors.fill: parent
                 onPressed:  {
-                    umedia.add_songs();
+                    if(currentPlaylist.addSongs.opacity == 0){
+                        currentPlaylist.addSongs.opacity = 1;
+                    }else{
+                        currentPlaylist.addSongs.opacity = 0;
+                    }
                 }
             }
         }

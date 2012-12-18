@@ -18,6 +18,7 @@ Rectangle {
     property alias hide_expanded: hide_playlist_expanded
     property alias buttons: playlistButtons
     property alias searchEnabled: searchWidget.opacity
+    property alias addSongs: add_songs
     property int current_index: -1
     property bool repeat: false
     property bool shuffle: false
@@ -136,6 +137,13 @@ Rectangle {
     }
 
     ////////////////////////////////////////////////////////////////////////////
+    // Add Songs Component
+    ////////////////////////////////////////////////////////////////////////////
+    AddSongs {
+        id: add_songs
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
     // Functions
     ////////////////////////////////////////////////////////////////////////////
     function add_song(title, artist, album, path){
@@ -143,7 +151,7 @@ Rectangle {
     }
 
     function _play_song_for_index(index){
-        if(index < view.count){
+        if(index != -1 && index < view.count){
             var title = view.model.get(index).title;
             var artist = view.model.get(index).artist;
             var album = view.model.get(index).album;

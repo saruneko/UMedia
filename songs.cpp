@@ -81,7 +81,7 @@ void Songs::append_song(const QString& file)
         if(album == ""){
             artist = dir.dirName();
         }
-        this->save_image_for_file(artist, album, file.toLatin1());
+        this->save_image_for_file(artist, album, file.toUtf8());
         QMetaObject::invokeMethod(root, "add_song", Q_ARG(QVariant, title), Q_ARG(QVariant, artist),
                                   Q_ARG(QVariant, album), Q_ARG(QVariant, file));
     }
@@ -120,8 +120,8 @@ bool Songs::save_image_for_file(const QString& artist, const QString& album, con
 void Songs::create_temp_folder()
 {
     QString tempPath = QDir::tempPath();
-    this->coverDir = new QDir(QDir(tempPath).filePath("umedia"));
+    this->coverDir = new QDir(QDir(tempPath).filePath("umedia/covers"));
     if(!this->coverDir->exists()){
-        this->coverDir->mkdir(this->coverDir->absolutePath());
+        this->coverDir->mkpath(this->coverDir->absolutePath());
     }
 }

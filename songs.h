@@ -17,6 +17,7 @@ public:
 
     void load_songs(const QString &path);
     void load_songs(const QStringList &files);
+    void append_song(const QString& file);
 
 signals:
 
@@ -29,7 +30,6 @@ private:
 
     bool save_image_for_file(const QString& artist, const QString& album, const char *file);
     void create_temp_folder();
-    void append_song(const QString& file);
 };
 
 #endif // SONGS_H
