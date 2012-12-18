@@ -40,6 +40,7 @@ Before the "qmake" command after an update.
 -  Menu Key: Show/Hide Search
 -  Ctrl + Right Arrow: Next Song
 -  Ctrl + Left Arrow: Previous Song
+-  A: Add Songs
 
 ## Actions with the Mouse
 
