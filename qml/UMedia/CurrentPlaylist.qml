@@ -85,6 +85,9 @@ Rectangle {
         Keys.onPressed: {
             if(event.key == Qt.Key_Q){
 
+            }else if(event.key == Qt.Key_Minus){
+                var index = view.currentIndex;
+                view.model.remove(index);
             }
         }
 
