@@ -10,7 +10,7 @@ Music Player
 
 ## Dependencies
 
--  sudo apt-get install qt4-dev-tools libdeclarative-multimedia libtag1-dev ffmpeg libavcodec-extra-53 cclive
+-  sudo apt-get install g++ qt4-dev-tools libdeclarative-multimedia libtag1-dev ffmpeg libavcodec-extra-53 cclive
 
 
 ## Compiling
