@@ -14,6 +14,8 @@ Rectangle {
     signal playing_song(string title)
     signal repeat_changed(bool value)
     signal shuffle_changed(bool value)
+    signal search_store(string search)
+    signal purchase_song(string url)
 
     Background{}
 
@@ -28,54 +30,45 @@ Rectangle {
          }
     }
 
-    Cover {
-        id: cover2
-        image: "img/The-Killers-Sams-Town-371666.jpg"
+    GeneralContainer {
+        id: generalContainer
+
+        property alias slideContainer: slide_container
 
         Behavior on x { PropertyAnimation{duration: 200} }
         SequentialAnimation {
-            id: slide_cover2
+            id: slide_container
             running: false
-            NumberAnimation { target: cover2; property: "x"; to: umedia.width; duration: 200 }
-            NumberAnimation { target: cover2; property: "z"; to: 0; }
+            NumberAnimation { target: generalContainer; property: "x"; to: umedia.width; duration: 400 }
+            NumberAnimation { target: generalContainer; property: "z"; to: 0; }
             NumberAnimation { target: cover; property: "z"; to: 1; }
-            NumberAnimation { target: cover2; property: "x"; to: 0; }
+            NumberAnimation { target: generalContainer; property: "x"; to: 0; }
+            NumberAnimation { target: currentPlaylist; property: "z"; to: 1; }
+            NumberAnimation { target: menu; property: "z"; to: 2; }
          }
-
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-
-            drag.target: cover2
-            drag.axis: Drag.XAxis
-
-            onReleased: {
-                if(cover2.x < (umedia.width / 2)){
-                    cover2.x = 0;
-                }
-                else if(cover2.x > (umedia.width / 2)){
-                    slide_cover2.running = true;
-                }
-            }
-        }
     }
 
     CurrentPlaylist {
         id: currentPlaylist
         playlistItems.focus: true
+        x: cover.x - currentPlaylist.width
     }
 
     Cover {
         id: cover
 
+        property alias slideCover: slide_cover
+
         Behavior on x { PropertyAnimation{duration: 200} }
         SequentialAnimation {
             id: slide_cover
             running: false
-            NumberAnimation { target: cover; property: "x"; to: -cover.width; duration: 200 }
+            NumberAnimation { target: cover; property: "x"; to: -cover.width; duration: 400 }
             NumberAnimation { target: cover; property: "z"; to: 0; }
-            NumberAnimation { target: cover2; property: "z"; to: 1; }
+            NumberAnimation { target: generalContainer; property: "z"; to: 1; }
             NumberAnimation { target: cover; property: "x"; to: 0; }
+            NumberAnimation { target: currentPlaylist; property: "z"; to: 1; }
+            NumberAnimation { target: menu; property: "z"; to: 2; }
          }
 
         MouseArea {
@@ -86,10 +79,7 @@ Rectangle {
             drag.axis: Drag.XAxis
 
             onReleased: {
-                if(mouseX > (umedia.width / 2) && cover.x < (umedia.width / 2)){
-                    slide_cover.running = true;
-                }
-                else if(cover.x > ((umedia.width / 2) - 40) && cover.x < ((umedia.width / 2) + 40)){
+                if(cover.x > ((umedia.width / 2) - 40) && cover.x < ((umedia.width / 2) + 40)){
                     cover.x = (umedia.width / 2);
                     currentPlaylist.show.running = true;
                 }else if(cover.x < (umedia.width / 2)){
@@ -100,6 +90,13 @@ Rectangle {
                     cover.x = umedia.width;
                     toggle_current_playlist_expanded();
                 }
+            }
+
+            onEntered: {
+                menu.show_menu();
+            }
+            onExited: {
+                menu.hide_menu();
             }
         }
     }
@@ -125,6 +122,10 @@ Rectangle {
              GradientStop { position: 0.5; color: "#ababab" }
              GradientStop { position: 1.0; color: "#494848" }
          }
+    }
+
+    Menu {
+        id: menu
     }
 
     Notification {
@@ -163,7 +164,9 @@ Rectangle {
     }
 
     Keys.onTabPressed: {
-        if(currentPlaylist.x == 0){
+        if(generalContainer.z == 1) {
+            toggle_current_playlist_visibility();
+        }else if(currentPlaylist.x == 0){
             if(cover.x == umedia.width){
                 cover.x = (umedia.width / 2);
             }
@@ -173,7 +176,7 @@ Rectangle {
 
     Keys.onMenuPressed: {
         if(currentPlaylist.searchEnabled == 0){
-            currentPlaylist.z = 1;
+            currentPlaylist.z = 2;
             currentPlaylist.show_expanded.running = true;
             currentPlaylist.toggle_search_widget_visibility();
         }else{
@@ -203,6 +206,7 @@ Rectangle {
             //cover
             var cover_path = songs.get_cover_path_for_song(artist, album);
             cover.image = cover_path;
+            menu.btnCover.button_icon.source = cover_path;
             // Set song
             playMusic.source = song_path;
             playMusic.play();
@@ -227,6 +231,7 @@ Rectangle {
             currentPlaylist.addSongs.opacity = 0;
         }else{
             cover.x = (umedia.width / 2);
+            currentPlaylist.z = 2;
             currentPlaylist.show.running = true;
         }
     }
@@ -239,7 +244,7 @@ Rectangle {
                 cover.x = (umedia.width / 2);
             }
         }else{
-            currentPlaylist.z = 1;
+            currentPlaylist.z = 2;
             currentPlaylist.show_expanded.running = true;
         }
     }
@@ -250,6 +255,10 @@ Rectangle {
 
     function set_shuffle(value){
         currentPlaylist.shuffle = value;
+    }
+
+    function load_store_result(title, artist, album, price, image, purchase_url){
+        generalContainer.musicStore.load_store_result(title, artist, album, price, image, purchase_url);
     }
 
     function show_notification(text){

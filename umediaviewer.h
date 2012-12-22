@@ -5,6 +5,7 @@
 #include "qmlapplicationviewer.h"
 #include "songs.h"
 #include "youtubedownloader.h"
+#include "musicstore.h"
 
 class UMediaViewer : public QmlApplicationViewer
 {
@@ -26,6 +27,7 @@ private:
     QSettings settings;
     Songs* songs;
     YouTubeDownloader* downloader;
+    MusicStore* musicStore;
 };
 
 #endif // UMEDIAVIEWER_H

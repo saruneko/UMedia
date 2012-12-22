@@ -87,7 +87,9 @@ Rectangle {
 
             }else if(event.key == Qt.Key_Minus){
                 var index = view.currentIndex;
-                view.model.remove(index);
+                if(index != -1){
+                    view.model.remove(index);
+                }
             }
         }
 

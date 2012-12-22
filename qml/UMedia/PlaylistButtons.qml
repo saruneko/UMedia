@@ -104,7 +104,7 @@ Rectangle {
                 }
             }
 
-            Behavior on opacity { NumberAnimation { duration: 200 } }
+            Behavior on opacity { NumberAnimation { duration: 100 } }
         }
     }
 

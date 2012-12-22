@@ -19,7 +19,7 @@ Rectangle {
         anchors.fill: parent
         anchors.centerIn: parent
         fillMode: Image.PreserveAspectFit
-        source: ""
+        source: "img/umedia.png"
     }
 
     Rectangle {

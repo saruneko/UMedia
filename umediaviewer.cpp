@@ -40,9 +40,9 @@ UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
 
     // Downloader
     this->downloader = new YouTubeDownloader(this->root, this->songs, this);
-//    this->downloader->start_download("http://youtu.be/95wSxkoH-wQ");
-//    this->downloader->start_download("http://youtu.be/95wSx");
-//    this->downloader->start_download("http://youtu.be/QB0ordd2nOI");
+
+    // Music Store
+    this->musicStore = new MusicStore(this->root, this);
 }
 
 void UMediaViewer::add_songs()

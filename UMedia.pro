@@ -33,7 +33,8 @@ symbian:TARGET.CAPABILITY += NetworkServices
 SOURCES += main.cpp \
     umediaviewer.cpp \
     songs.cpp \
-    youtubedownloader.cpp
+    youtubedownloader.cpp \
+    musicstore.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -42,7 +43,8 @@ qtcAddDeployment()
 HEADERS += \
     umediaviewer.h \
     songs.h \
-    youtubedownloader.h
+    youtubedownloader.h \
+    musicstore.h
 
-QMAKE_CXXFLAGS += -I /usr/include/taglib -I /usr/include/taglib-extras
-QMAKE_LIBS += -ltag
+QMAKE_CXXFLAGS += -I /usr/include/taglib -I /usr/include/taglib-extras /usr/include/qjson
+QMAKE_LIBS += -ltag -lqjson

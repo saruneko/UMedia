@@ -53,19 +53,6 @@ Rectangle{
             }
         }
 
-        Keys.onDownPressed: {
-            searchWidget.searchList.focus = true;
-            searchWidget.searchList.currentIndex = 1;
-        }
-
-        Keys.onReleased: {
-            searchWidget.filter_list(text);
-        }
-
-        Keys.onReturnPressed: {
-            _play_song_from_search();
-        }
-
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
@@ -80,15 +67,6 @@ Rectangle{
                 search_box.border.color = "#3a3d42";
             }
         }
-    }
-
-    function _play_song_from_search(){
-        var index = view.currentIndex
-        var title = view.model.get(index).title;
-        var artist = view.model.get(index).artist;
-        var album = view.model.get(index).album;
-        var path = view.model.get(index).path;
-        umedia.play_song(title, artist, album, path);
     }
 
 }

@@ -23,6 +23,19 @@ Rectangle {
         spacing: 5
         SearchInput {
             id: search_input
+
+            Keys.onDownPressed: {
+                view.focus = true;
+                view.currentIndex = 1;
+            }
+
+            Keys.onReleased: {
+                searchWidget.filter_list(textSearch.text);
+            }
+
+            Keys.onReturnPressed: {
+                _play_song_from_search();
+            }
         }
         Component {
             id: songDelegate
@@ -53,7 +66,7 @@ Rectangle {
             }
 
             Keys.onReturnPressed: {
-                searchInput._play_song_from_search();
+                _play_song_from_search();
             }
         }
     }
@@ -87,6 +100,15 @@ Rectangle {
             var path = currentPlaylist.playlistItems.model.get(i).path;
             songModel.append({title: title, artist: artist, path: path, album: album});
         }
+    }
+
+    function _play_song_from_search(){
+        var index = view.currentIndex
+        var title = view.model.get(index).title;
+        var artist = view.model.get(index).artist;
+        var album = view.model.get(index).album;
+        var path = view.model.get(index).path;
+        umedia.play_song(title, artist, album, path);
     }
 
 }
