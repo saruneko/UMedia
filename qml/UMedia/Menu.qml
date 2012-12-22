@@ -8,7 +8,7 @@ Rectangle {
     anchors.top: parent.top
     anchors.topMargin: 60
     anchors.rightMargin: 50
-    opacity: 0.1
+    opacity: 0.2
     color: "black"
     radius: 15
     x: parent.width
@@ -27,7 +27,7 @@ Rectangle {
             show_menu();
         }
         onExited: {
-            menu.opacity = 0.1;
+            menu.opacity = 0.2;
             hide_menu();
         }
     }
