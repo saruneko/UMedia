@@ -10,7 +10,7 @@ Music Player
 
 ## Dependencies
 
--  sudo apt-get install qt4-dev-tools libdeclarative-multimedia libtag1-dev ffmpeg libavcodec-extra-53 cclive
+-  sudo apt-get install g++ qt4-dev-tools libdeclarative-multimedia libtag1-dev ffmpeg libavcodec-extra-53 cclive
 
 
 ## Compiling
@@ -40,7 +40,7 @@ Before the "qmake" command after an update.
 -  Menu Key: Show/Hide Search
 -  Ctrl + Right Arrow: Next Song
 -  Ctrl + Left Arrow: Previous Song
--  A: Add Songs
+-  A: Show/Hide Add Songs
 -  Minus (-): Remove selected song from playlist
 
 ## Actions with the Mouse
