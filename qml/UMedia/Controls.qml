@@ -14,11 +14,34 @@ Rectangle {
     Background{ source: "img/bg-controls.png" }
 
     Slider {
-        width: controls.width - 20
+        width: controls.width - 40
         anchors.left: controls.left
         anchors.top: controls.top
         anchors.leftMargin: 10
         anchors.topMargin: 12
+    }
+
+    Image {
+        width: 20
+        height: 20
+        anchors.right: controls.right
+        anchors.top: controls.top
+        anchors.rightMargin: 5
+        anchors.topMargin: 6
+        fillMode: Image.PreserveAspectFit
+        source: "img/volume.png"
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                if(volumeSlider.x > umedia.width){
+                    volumeSlider.z = 2;
+                    volumeSlider.x = umedia.width - volumeSlider.width - 13;
+                }else{
+                    volumeSlider.x = umedia.width + 20;
+                }
+            }
+        }
     }
 
     Button {

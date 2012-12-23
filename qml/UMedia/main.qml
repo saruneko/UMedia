@@ -107,6 +107,15 @@ Rectangle {
         anchors.top: cover2.anchors.top
     }
 
+    VolumeSlider {
+        id: volumeSlider
+        anchors.bottom: controls.top
+        anchors.bottomMargin: 5
+        width: 150
+        height: 20
+        x: umedia.width + 20
+    }
+
     Controls {
         id: controls
         z: 2
