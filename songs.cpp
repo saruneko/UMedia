@@ -46,12 +46,17 @@ bool Songs::valid_song_file(const QString &file){
 void Songs::load_songs(const QString &file)
 {
     QDir musicDir(file);
-    QStringList files_list = musicDir.entryList(QStringList("*.mp3"), QDir::Files, QDir::Name);
+    QStringList files_list = musicDir.entryList(QStringList("*.mp3"), QDir::Files | QDir::Readable, QDir::Name);
+    QStringList dirs = musicDir.entryList(QStringList("*"), QDir::Dirs | QDir::NoDotAndDotDot | QDir::Readable, QDir::Name);
 
     int i;
     for(i = 0; i < files_list.size(); i++){
         QString path_song = musicDir.filePath(files_list[i]);
         this->append_song(path_song);
+    }
+    for(i = 0; i < dirs.size(); i++){
+        QString path_folder = musicDir.filePath(dirs[i]);
+        this->load_songs(path_folder);
     }
 }
 
@@ -66,7 +71,7 @@ void Songs::load_songs(const QStringList &files)
 void Songs::append_song(const QString& file)
 {
     QFileInfo info(file);
-    if(info.isFile() && info.isReadable()){
+    if(info.isFile()){
         QDir dir(file);
         TagLib::FileRef f(file.toUtf8());
         QString artist(f.tag()->artist().toCString());
@@ -84,6 +89,8 @@ void Songs::append_song(const QString& file)
         this->save_image_for_file(artist, album, file.toUtf8());
         QMetaObject::invokeMethod(root, "add_song", Q_ARG(QVariant, title), Q_ARG(QVariant, artist),
                                   Q_ARG(QVariant, album), Q_ARG(QVariant, file));
+    }else if(info.isDir()){
+        this->load_songs(info.absolutePath());
     }
 }
 

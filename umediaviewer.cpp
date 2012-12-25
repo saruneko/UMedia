@@ -12,13 +12,15 @@ UMediaViewer::UMediaViewer(int argc, char *argv[], QWidget *parent) :
     this->setMainQmlFile(QLatin1String("qml/UMedia/main.qml"));
     this->showExpanded();
 
+    QStringList list;
     if(argc > 1){
         this->path = argv[1];
+        list << this->path;
     }
 
     this->root = this->rootObject();
     this->songs = new Songs(this->root);
-    this->songs->load_songs(this->path);
+    this->songs->load_songs(list);
 
     // Set qml/c++ properties
     this->rootContext()->setContextProperty("songs", this->songs);
