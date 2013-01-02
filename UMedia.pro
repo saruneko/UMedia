@@ -1,4 +1,4 @@
-QT       += core gui declarative
+QT       += core gui declarative network
 
 # Add more folders to ship with the application, here
 folder_01.source = qml/UMedia
